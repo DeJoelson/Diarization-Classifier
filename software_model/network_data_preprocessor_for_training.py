@@ -61,6 +61,21 @@ class NetworkDataPreprocessorForTraining(NetworkDataPreprocessor):
 
         return chunk, [spk1_status, spk2_status]
 
+    def get_all_annotated_chunks(self):
+        batch = []
+        response_variables = []
+
+        for file_index in range(0, len(self._audio)):
+            audio_file = self._audio[file_index]
+            num_chunks_in_file = ceil(audio_file.shape[0] / NUM_SAMPS_IN_CHUNK)
+            for chunk_index in range(0, num_chunks_in_file):
+              chunk, status = self.get_annotated_chunk(file_index, chunk_index)
+              batch.append(chunk)
+              response_variables.append(status)  
+
+        return batch, response_variables
+        
+        
     def get_random_annotated_chunk(self):
         """Gets a random chunk from a random file provided in the class initialization."""
 

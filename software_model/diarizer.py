@@ -1,4 +1,3 @@
-from software_model.neural_network import NeuralNetwork
 from software_model.network_data_preprocessor import NetworkDataPreprocessor
 from software_model.network_data_postprocessor import NetworkDataPostprocessor
 

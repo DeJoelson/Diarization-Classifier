@@ -14,29 +14,6 @@ class NetworkDataPreprocessor:
         self._audio = self.read_wav_files()
         self.num_files = len(file_list)
 
-    @staticmethod
-    def to_tensorflow_readable_evaluation_input(list_of_chunks):
-        raw = []
-        fft = []
-        for chunk in list_of_chunks:
-            raw0 = chunk.get_raw0()
-            raw1 = chunk.get_raw1()
-            fft0 = chunk.get_fft0()
-            fft1 = chunk.get_fft1()
-            raw.append(NetworkDataPreprocessor._chunk_data_reshape(raw0, raw1))
-            fft.append(NetworkDataPreprocessor._chunk_data_reshape(fft0, fft1))
-
-        raw = np.array(raw)
-        fft = np.array(fft)
-        return raw, fft
-
-    @staticmethod
-    def _chunk_data_reshape(channel0, channel1):
-        chunk_len = len(channel0)
-        chunk = np.array([channel0, channel1])
-        chunk = chunk.reshape([chunk_len, 2, 1])
-        return chunk
-
     def read_wav_files(self):
         """This method reads in .wav sound files."""
         files_to_return = []

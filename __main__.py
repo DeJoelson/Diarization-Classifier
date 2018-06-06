@@ -1,10 +1,9 @@
 import sys
 from PyQt5 import QtWidgets
-from software_model.neural_network import NeuralNetwork
 from software_model.diarizer import Diarizer
 from software_view.view import MainWindow
 
-
+import software_model.classifier as classy
 """
 Below are examples highlighting how the software can be used
 """
@@ -22,13 +21,7 @@ def train_net():
     del files_to_train_on[files_to_train_on.index('HS_D11')]
     del files_to_train_on[files_to_train_on.index('HS_D22')]
 
-    net = NeuralNetwork()
-    place_to_save_model = "Model/may30.ckpt"
-    # reviously_saved_network_model = "Model/ultimate_model_saved_weights.ckpt"
-    previously_saved_network_model = None
-
-    # Note that you can adjust the default parameters, such as epochs or batch size here too.
-    net.train_network(files_to_train_on, place_to_save_model, in_model_location=previously_saved_network_model)
+    classy.train_classifier(files_to_train_on, None)
 
 
 def evaluate_on_a_particular_file():
